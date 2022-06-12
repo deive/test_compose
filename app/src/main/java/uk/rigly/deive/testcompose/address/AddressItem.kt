@@ -28,7 +28,10 @@ data class AddressItem(
 
 @Composable
 fun AddressItemList(data: List<AddressItem>) {
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    LazyColumn(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         items(data.size) { index ->
             AddressItem(data[index])
         }
@@ -70,6 +73,7 @@ fun AddressItem(item: AddressItem) {
     }
 }
 
+@ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
@@ -80,6 +84,7 @@ fun DefaultPreview() {
     }
 }
 
+// From https://random-data-api.com/api/address/random_address
 fun testAddressList() = listOf(
     AddressItem(1, 47.52466, -122.31339,
         "South Edmondbury",
