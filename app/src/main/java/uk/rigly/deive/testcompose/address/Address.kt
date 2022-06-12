@@ -1,17 +1,19 @@
 @file:UseSerializers(UUIDAsStringSerializer::class)
 package uk.rigly.deive.testcompose.address
 
-import java.util.*
-import kotlinx.serialization.UseSerializers
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 import uk.rigly.deive.testcompose.UUIDAsStringSerializer
+import java.util.*
 
 @Serializable
 data class Address(
     val id: Long,
-    val uid: UUID,
-    val latitude: Double,
-    val longitude: Double,
+    val uuid: UUID,
+    override val latitude: Double,
+    override val longitude: Double,
 
     val secondaryAddress: String,
     val buildingNumber: String,
@@ -33,4 +35,11 @@ data class Address(
     val stateAbbr: String,
     val countryCode: String,
     val fullAddress: String,
-)
+) : AddressImage
+
+@Composable
+fun Address(item: Address) {
+    val viewWidth = 300.dp
+    val viewHeight = 200.dp
+    AddressImage(item, viewWidth, viewHeight)
+}

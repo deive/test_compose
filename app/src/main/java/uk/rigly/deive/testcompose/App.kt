@@ -1,59 +1,61 @@
 package uk.rigly.deive.testcompose
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallTopAppBar
-import androidx.compose.material3.Text
+import android.os.Bundle
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.textInputServiceFactory
-import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavDestinationBuilder
-import androidx.navigation.compose.ComposeNavigator
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.get
-import uk.rigly.deive.testcompose.address.AddressItemList
-import uk.rigly.deive.testcompose.address.testAddressList
+import uk.rigly.deive.testcompose.address.AddressItemsScreen
+import uk.rigly.deive.testcompose.address.AddressScreen
 import uk.rigly.deive.testcompose.ui.theme.TestComposeTheme
+import java.nio.ByteBuffer
+import java.util.*
 
 @Composable
 fun App() {
     TestComposeTheme {
         val navController = rememberNavController()
-        NavHost(navController, Screens.AddressItemList.route) {
-            addDestination(
-                ComposeNavigator.Destination(provider[ComposeNavigator::class]) {
-                    ListScreen()
-                }.apply { route = Screens.AddressItemList.route }
-            )
+        NavHost(
+            navController,
+            "list") {
+            composable("list") {
+                AddressItemsScreen {
+                    navController.navigate("detail/${it.uuid}")
+                }
+            }
+            composable("detail/{id}") {  entry ->
+                argument("id") {
+                    type = UUIDType
+                }
+                val uuid = UUID.fromString(entry.arguments?.get("id") as String)
+                AddressScreen(uuid)
+            }
         }
     }
 }
 
-enum class Screens(val route: String) {
-    AddressItemList("list")
-}
+val UUIDType: NavType<UUID?> = object : NavType<UUID?>(true) {
+    override val name: String
+        get() = "UUID"
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ListScreen() {
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.app_name)) }
-            )
-        }
-    ) { padding ->
-        Box(modifier = Modifier
-            .padding(padding)) {
-            AddressItemList(
-                testAddressList()
-            )
-        }
+    override fun put(bundle: Bundle, key: String, value: UUID?) {
+        bundle.putByteArray(key, value?.let {
+            ByteBuffer.allocate(16)
+                .putLong(it.mostSignificantBits)
+                .putLong(it.leastSignificantBits)
+                .array()
+        })
+    }
+
+    @Suppress("DEPRECATION")
+    override fun get(bundle: Bundle, key: String): UUID? {
+        val bytes = bundle.getByteArray(key) ?: return null
+        val buf = ByteBuffer.wrap(bytes)
+        return UUID(buf.long, buf.long)
+    }
+
+    override fun parseValue(value: String): UUID {
+        return UUID.fromString(value)
     }
 }

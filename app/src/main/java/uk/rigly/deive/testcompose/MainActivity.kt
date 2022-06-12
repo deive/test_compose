@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 fun DefaultPreview() {
     TestComposeTheme {
         AddressItemList(
-            testAddressList()
-        )
+            testAddressList
+        ) {}
     }
 }

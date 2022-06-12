@@ -1,5 +1,6 @@
 package uk.rigly.deive.testcompose.address
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
@@ -8,46 +9,41 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import uk.rigly.deive.testcompose.R
 import uk.rigly.deive.testcompose.ui.theme.TestComposeTheme
+import java.util.*
 
 data class AddressItem(
     val id: Long,
-    val latitude: Double,
-    val longitude: Double,
+    val uuid: UUID,
+    override val latitude: Double,
+    override val longitude: Double,
 
     val city: String,
     val state: String,
-)
+) : AddressImage
 
 @Composable
-fun AddressItemList(data: List<AddressItem>) {
+fun AddressItemList(data: List<AddressItem>, onClick: (AddressItem) -> Unit) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(data.size) { index ->
-            AddressItem(data[index])
+            AddressItem(data[index], onClick)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddressItem(item: AddressItem) {
+fun AddressItem(item: AddressItem, onClick: (AddressItem) -> Unit) {
     val viewWidth = 100.dp
     val viewHeight = 100.dp
-    val (imageWidth, imageHeight) = with(LocalDensity.current) { Pair(
-        viewWidth.toPx().toInt(),
-        viewHeight.toPx().toInt()
-    )}
-    Card {
+    Card(
+        modifier = Modifier.clickable { onClick(item) }
+    ) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Box(modifier = Modifier
                 .weight(1f)
@@ -59,16 +55,7 @@ fun AddressItem(item: AddressItem) {
                     Text(text = item.state)
                 }
             }
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data("https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=$imageWidth&height=$imageHeight&center=lonlat:${item.longitude},${item.latitude}&zoom=14&marker=lonlat:${item.longitude},${item.latitude};color:%23ff0000;size:medium&apiKey=45f4fbe35eef4b038a7169478e4932f2")
-                    .error(drawableResId = R.drawable.ic_baseline_error_outline_24)
-                    .placeholder(drawableResId = R.drawable.ic_baseline_downloading_24)
-                    .size(imageWidth, imageHeight)
-                    .build(),
-                contentDescription = null,
-                modifier = Modifier.size(viewWidth, viewHeight),
-            )
+            AddressImage(item, viewWidth, viewHeight)
         }
     }
 }
@@ -79,34 +66,40 @@ fun AddressItem(item: AddressItem) {
 fun DefaultPreview() {
     TestComposeTheme {
         AddressItemList(
-            testAddressList()
-        )
+            testAddressList
+        ) {}
     }
 }
 
 // From https://random-data-api.com/api/address/random_address
-fun testAddressList() = listOf(
-    AddressItem(1, 47.52466, -122.31339,
+val testAddressList = listOf(
+    AddressItem(1, UUID.randomUUID(),
+        47.52466, -122.31339,
         "South Edmondbury",
         "New Mexico",
     ),
-    AddressItem(2, -17.214461752228942, -169.19780435633243,
+    AddressItem(2, UUID.randomUUID(),
+        -17.214461752228942, -169.19780435633243,
         "South Edmondbury",
         "New Mexico",
     ),
-    AddressItem(2, 31.459245777705362, 108.48339700069033,
+    AddressItem(3, UUID.randomUUID(),
+        31.459245777705362, 108.48339700069033,
         "Lanechester",
         "Texas",
     ),
-    AddressItem(2, 0.0, 0.0,
+    AddressItem(4, UUID.randomUUID(),
+        0.0, 0.0,
         "North Olimpia",
         "Kansas",
     ),
-    AddressItem(1, 47.52466, 122.31339,
+    AddressItem(5, UUID.randomUUID(),
+        47.52466, 122.31339,
         "East Elliott",
         "Delaware",
     ),
-    AddressItem(2, 122.31339, 47.52466,
+    AddressItem(6, UUID.randomUUID(),
+        122.31339, 47.52466,
         "South Collinfurt",
         "Colorado",
     ),
