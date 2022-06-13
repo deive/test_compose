@@ -1,11 +1,12 @@
 @file:UseSerializers(UUIDAsStringSerializer::class)
-package uk.rigly.deive.testcompose.address
+package uk.rigly.deive.testcompose.address.details
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import uk.rigly.deive.testcompose.UUIDAsStringSerializer
+import uk.rigly.deive.testcompose.address.AddressImage
 import java.util.*
 
 @Serializable

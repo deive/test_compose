@@ -6,9 +6,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import uk.rigly.deive.testcompose.address.AddressItemsScreen
-import uk.rigly.deive.testcompose.address.AddressScreen
-import uk.rigly.deive.testcompose.ui.theme.TestComposeTheme
+import uk.rigly.deive.testcompose.address.list.AddressItemsScreen
+import uk.rigly.deive.testcompose.address.details.AddressScreen
+import uk.rigly.deive.testcompose.theme.TestComposeTheme
 import java.nio.ByteBuffer
 import java.util.*
 
@@ -29,7 +29,9 @@ fun App() {
                     type = UUIDType
                 }
                 val uuid = UUID.fromString(entry.arguments?.get("id") as String)
-                AddressScreen(uuid)
+                AddressScreen(uuid) {
+                    navController.popBackStack()
+                }
             }
         }
     }

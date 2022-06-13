@@ -1,4 +1,4 @@
-package uk.rigly.deive.testcompose.address
+package uk.rigly.deive.testcompose.address.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,7 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import uk.rigly.deive.testcompose.ui.theme.TestComposeTheme
+import uk.rigly.deive.testcompose.address.AddressImage
+import uk.rigly.deive.testcompose.theme.TestComposeTheme
 import java.util.*
 
 data class AddressItem(
@@ -63,7 +64,7 @@ fun AddressItem(item: AddressItem, onClick: (AddressItem) -> Unit) {
 @ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun AddressItemListPreview() {
     TestComposeTheme {
         AddressItemList(
             testAddressList

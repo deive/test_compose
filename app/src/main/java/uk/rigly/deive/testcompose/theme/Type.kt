@@ -1,4 +1,4 @@
-package uk.rigly.deive.testcompose.ui.theme
+package uk.rigly.deive.testcompose.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

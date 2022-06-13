@@ -1,4 +1,4 @@
-package uk.rigly.deive.testcompose.ui.theme
+package uk.rigly.deive.testcompose.theme
 
 import androidx.compose.ui.graphics.Color
 
