@@ -2,12 +2,19 @@ package uk.rigly.deive.testcompose
 
 import android.os.Bundle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import uk.rigly.deive.testcompose.address.list.AddressItemsScreen
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import uk.rigly.deive.testcompose.address.details.Address
 import uk.rigly.deive.testcompose.address.details.AddressScreen
+import uk.rigly.deive.testcompose.address.list.AddressItemsScreen
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 import java.nio.ByteBuffer
 import java.util.*
@@ -16,11 +23,21 @@ import java.util.*
 fun App() {
     TestComposeTheme {
         val navController = rememberNavController()
+        val viewModel: MainViewModel = viewModel()
+        val addresses by viewModel.db.addressDao().getAll().collectAsState(initial = emptyList())
+        LaunchedEffect(true) {
+            if (addresses.isEmpty()) {
+                val response = viewModel.httpClient
+                    .get("https://random-data-api.com/api/address/random_address?size=20")
+                    .body<List<Address>>()
+                viewModel.db.addressDao().insertAll(response)
+            }
+        }
         NavHost(
             navController,
             "list") {
             composable("list") {
-                AddressItemsScreen {
+                AddressItemsScreen(addresses) {
                     navController.navigate("detail/${it.uuid}")
                 }
             }

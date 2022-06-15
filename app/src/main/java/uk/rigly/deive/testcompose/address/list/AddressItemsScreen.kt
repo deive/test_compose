@@ -12,7 +12,7 @@ import uk.rigly.deive.testcompose.theme.TestComposeTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddressItemsScreen(onClick: (AddressItem) -> Unit) {
+fun AddressItemsScreen(data: List<AddressItem>, onClick: (AddressItem) -> Unit) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -22,7 +22,7 @@ fun AddressItemsScreen(onClick: (AddressItem) -> Unit) {
     ) { padding ->
         Box(modifier = Modifier
             .padding(padding)) {
-            AddressItemList(testAddressList, onClick)
+            AddressItemList(data, onClick)
         }
     }
 }
@@ -31,6 +31,6 @@ fun AddressItemsScreen(onClick: (AddressItem) -> Unit) {
 @Composable
 fun AddressItemsScreenPreview() {
     TestComposeTheme {
-        AddressItemsScreen {}
+        AddressItemsScreen(testAddressList) {}
     }
 }
