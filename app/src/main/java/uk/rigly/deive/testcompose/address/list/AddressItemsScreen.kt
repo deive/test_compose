@@ -22,7 +22,7 @@ fun AddressItemsScreen(data: List<AddressItem>, onClick: (AddressItem) -> Unit) 
     ) { padding ->
         Box(modifier = Modifier
             .padding(padding)) {
-            AddressItemList(data, onClick)
+            AddressItemsList(data, onClick)
         }
     }
 }

@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.AndroidViewModel
-import uk.rigly.deive.testcompose.address.list.AddressItemList
+import uk.rigly.deive.testcompose.address.list.AddressItemsList
 import uk.rigly.deive.testcompose.address.list.testAddressList
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 
@@ -31,7 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 @Composable
 fun DefaultPreview() {
     TestComposeTheme {
-        AddressItemList(
+        AddressItemsList(
             testAddressList
         ) {}
     }

@@ -2,7 +2,6 @@ package uk.rigly.deive.testcompose.address.list
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -24,18 +23,6 @@ data class AddressItem(
     val city: String,
     val state: String,
 ) : AddressImage
-
-@Composable
-fun AddressItemList(data: List<AddressItem>, onClick: (AddressItem) -> Unit) {
-    LazyColumn(
-        modifier = Modifier.padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(data.size) { index ->
-            AddressItem(data[index], onClick)
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,10 +51,10 @@ fun AddressItem(item: AddressItem, onClick: (AddressItem) -> Unit) {
 @ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
-fun AddressItemListPreview() {
+fun AddressItemPreview() {
     TestComposeTheme {
-        AddressItemList(
-            testAddressList
+        AddressItem(
+            testAddressList.first()
         ) {}
     }
 }
