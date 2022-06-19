@@ -13,6 +13,10 @@ import uk.rigly.deive.testcompose.UUIDAsStringSerializer
 import uk.rigly.deive.testcompose.address.AddressImage
 import java.util.*
 
+/**
+ * Represents an address.
+ * Currently used for both API and database.
+ */
 @Entity
 @Serializable
 data class Address(
@@ -46,6 +50,7 @@ data class Address(
     val fullAddress: String? = null,
 ) : AddressImage
 
+/** Detail UI for an address. */
 @Composable
 fun Address(item: Address) {
     val viewWidth = 300.dp

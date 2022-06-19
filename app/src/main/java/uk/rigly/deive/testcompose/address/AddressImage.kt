@@ -10,11 +10,13 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import uk.rigly.deive.testcompose.R
 
+/** Provides enough information about an address to draw an AddressImage() */
 interface AddressImage {
     val latitude: Double
     val longitude: Double
 }
 
+/** An image (from geoapify.com) for an address. */
 @Composable
 fun AddressImage(address: AddressImage, viewWidth: Dp, viewHeight: Dp) {
     val (imageWidth, imageHeight) = with(LocalDensity.current) {

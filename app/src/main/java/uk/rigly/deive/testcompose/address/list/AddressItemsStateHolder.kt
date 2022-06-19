@@ -12,6 +12,7 @@ import uk.rigly.deive.testcompose.MainViewModel
 import uk.rigly.deive.testcompose.address.details.Address
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 
+/** Holds and handles address list data. */
 @Composable
 fun AddressItemsStateHolder(
     viewModel: MainViewModel = viewModel(),

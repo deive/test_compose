@@ -7,10 +7,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.util.*
 
-class Api {
-
-}
-
+/** Allows UUID typed JSON. */
 object UUIDAsStringSerializer : KSerializer<UUID> {
     override val descriptor = PrimitiveSerialDescriptor("UUID", PrimitiveKind.STRING)
     override fun deserialize(decoder: Decoder): UUID = UUID.fromString(decoder.decodeString())

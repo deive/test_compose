@@ -10,9 +10,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import uk.rigly.deive.testcompose.R
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+/** Main, list of addresses, screen. */
 @Composable
 fun AddressItemsScreen(onClick: (AddressItem) -> Unit) {
+    AddressItemsScreenScaffold {
+        AddressItemsStateHolder { addresses ->
+            AddressItemsList(addresses, onClick)
+        }
+    }
+}
+
+/** Main, screen scaffolding. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AddressItemsScreenScaffold(
+    content: @Composable () -> Unit) {
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -22,9 +34,7 @@ fun AddressItemsScreen(onClick: (AddressItem) -> Unit) {
     ) { padding ->
         Box(modifier = Modifier
             .padding(padding)) {
-            AddressItemsStateHolder { addresses ->
-                AddressItemsList(addresses, onClick)
-            }
+            content()
         }
     }
 }
@@ -33,6 +43,8 @@ fun AddressItemsScreen(onClick: (AddressItem) -> Unit) {
 @Composable
 fun AddressItemsScreenPreview() {
     TestComposeTheme {
-        AddressItemsScreen {}
+        AddressItemsScreenScaffold {
+            AddressItemsList(testAddressList) {}
+        }
     }
 }

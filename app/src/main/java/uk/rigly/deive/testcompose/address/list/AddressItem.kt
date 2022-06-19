@@ -14,6 +14,7 @@ import uk.rigly.deive.testcompose.address.AddressImage
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 import java.util.*
 
+/** View of address data for address list information. */
 data class AddressItem(
     val id: Long,
     val uuid: UUID,
@@ -24,6 +25,7 @@ data class AddressItem(
     val state: String,
 ) : AddressImage
 
+/** UI for an address item in a list. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddressItem(item: AddressItem, onClick: (AddressItem) -> Unit) {

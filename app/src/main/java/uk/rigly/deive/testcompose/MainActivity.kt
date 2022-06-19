@@ -11,6 +11,7 @@ import uk.rigly.deive.testcompose.address.list.AddressItemsList
 import uk.rigly.deive.testcompose.address.list.testAddressList
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 
+/** Single activity for compose app. */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +21,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/** ViewModel to link app to compose. */
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val db by lazy { (application as AndroidApp).db }

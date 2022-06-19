@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import uk.rigly.deive.testcompose.BasicScaffold
 import java.util.*
 
+/** Details screen for an address. */
 @Composable
 fun AddressScreen(uuid: UUID, onUp: () -> Unit) {
     BasicScaffold("Address...", onUp) {

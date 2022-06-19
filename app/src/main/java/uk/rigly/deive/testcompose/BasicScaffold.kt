@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import uk.rigly.deive.testcompose.R
 
+/** Scaffold for screens with simple small app bar and back/up button. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicScaffold(title: String, onUp: () -> Unit, content: @Composable BoxScope.() -> Unit) {
@@ -21,7 +23,7 @@ fun BasicScaffold(title: String, onUp: () -> Unit, content: @Composable BoxScope
                     IconButton(onClick = onUp) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                            contentDescription = "back",
+                            contentDescription = stringResource(id = R.string.back),
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
                         )
                     }

@@ -16,6 +16,7 @@ import uk.rigly.deive.testcompose.theme.TestComposeTheme
 import java.nio.ByteBuffer
 import java.util.*
 
+/** Main App - main navigation wrapped in the theme. */
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun App() {
@@ -58,6 +59,7 @@ fun App() {
     }
 }
 
+/** Allows UUID typed navigation. */
 val UUIDType: NavType<UUID?> = object : NavType<UUID?>(true) {
     override val name: String
         get() = "UUID"

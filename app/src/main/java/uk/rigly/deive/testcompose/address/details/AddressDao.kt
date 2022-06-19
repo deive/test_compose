@@ -4,6 +4,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import uk.rigly.deive.testcompose.address.list.AddressItem
 
+/** Address table. */
 @Dao
 interface AddressDao {
     @Query("SELECT * FROM address")

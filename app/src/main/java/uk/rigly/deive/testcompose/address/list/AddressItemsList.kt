@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
 
+/** List UI for addresses. */
 @Composable
 fun AddressItemsList(data: List<AddressItem>, onClick: (AddressItem) -> Unit) {
     LazyColumn(

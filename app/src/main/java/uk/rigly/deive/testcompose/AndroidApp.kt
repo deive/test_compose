@@ -12,6 +12,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import kotlin.math.pow
 
+/** Android App, holds native/app-wide objects. */
 class AndroidApp : Application() {
 
     lateinit var db: DatabaseProvider
