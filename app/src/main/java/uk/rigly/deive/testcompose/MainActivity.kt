@@ -26,6 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val db by lazy { (application as AndroidApp).db }
     val httpClient by lazy { (application as AndroidApp).httpClient }
+    val preferences by lazy { (application as AndroidApp).preferences }
 
 }
 

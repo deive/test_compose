@@ -1,6 +1,9 @@
 package uk.rigly.deive.testcompose
 
 import android.app.Application
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.room.Room
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -28,6 +31,8 @@ class AndroidApp : Application() {
             }
         }
     }
+
+    val preferences: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
     override fun onCreate() {
         super.onCreate()
