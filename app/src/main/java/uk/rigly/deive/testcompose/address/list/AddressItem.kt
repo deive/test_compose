@@ -16,8 +16,7 @@ import java.util.*
 
 /** View of address data for address list information. */
 data class AddressItem(
-    val id: Long,
-    val uuid: UUID,
+    val id: UUID,
     override val latitude: Double,
     override val longitude: Double,
 
@@ -63,32 +62,32 @@ fun AddressItemPreview() {
 
 // From https://random-data-api.com/api/address/random_address
 val testAddressList = listOf(
-    AddressItem(1, UUID.randomUUID(),
+    AddressItem(UUID.randomUUID(),
         47.52466, -122.31339,
         "South Edmondbury",
         "New Mexico",
     ),
-    AddressItem(2, UUID.randomUUID(),
+    AddressItem(UUID.randomUUID(),
         -17.214461752228942, -169.19780435633243,
         "South Edmondbury",
         "New Mexico",
     ),
-    AddressItem(3, UUID.randomUUID(),
+    AddressItem(UUID.randomUUID(),
         31.459245777705362, 108.48339700069033,
         "Lanechester",
         "Texas",
     ),
-    AddressItem(4, UUID.randomUUID(),
+    AddressItem(UUID.randomUUID(),
         0.0, 0.0,
         "North Olimpia",
         "Kansas",
     ),
-    AddressItem(5, UUID.randomUUID(),
+    AddressItem(UUID.randomUUID(),
         47.52466, 122.31339,
         "East Elliott",
         "Delaware",
     ),
-    AddressItem(6, UUID.randomUUID(),
+    AddressItem(UUID.randomUUID(),
         122.31339, 47.52466,
         "South Collinfurt",
         "Colorado",

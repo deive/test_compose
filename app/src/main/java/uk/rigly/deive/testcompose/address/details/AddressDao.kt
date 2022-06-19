@@ -3,10 +3,14 @@ package uk.rigly.deive.testcompose.address.details
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import uk.rigly.deive.testcompose.address.list.AddressItem
+import java.util.*
 
 /** Address table. */
 @Dao
 interface AddressDao {
+    @Query("SELECT * FROM address WHERE id = :id")
+    fun getById(id: UUID): Flow<Address?>
+
     @Query("SELECT * FROM address")
     fun getAll(): Flow<List<AddressItem>>
 

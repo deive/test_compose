@@ -20,11 +20,9 @@ import java.util.*
 @Entity
 @Serializable
 data class Address(
-    @Transient
     @PrimaryKey
-    val id: Long? = null,
     @SerialName("uid")
-    val uuid: UUID,
+    val id: UUID,
     override val latitude: Double,
     override val longitude: Double,
 
@@ -48,7 +46,11 @@ data class Address(
     val stateAbbr: String? = null,
     val countryCode: String? = null,
     val fullAddress: String? = null,
-) : AddressImage
+) : AddressImage {
+    companion object {
+        val Empty = Address(UUID(0L, 0L), 0.0, 0.0)
+    }
+}
 
 /** Detail UI for an address. */
 @Composable

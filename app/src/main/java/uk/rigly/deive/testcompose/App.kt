@@ -37,7 +37,7 @@ fun App() {
                     slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
                 }) {
                 AddressItemsScreen {
-                    navController.navigate("detail/${it.uuid}")
+                    navController.navigate("detail/${it.id}")
                 }
             }
             composable("detail/{id}",

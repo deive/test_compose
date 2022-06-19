@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Test Compose</string>
     <string name="back">Back</string>
+    <string name="address_details_title">Address Details</string>
 </resources>
