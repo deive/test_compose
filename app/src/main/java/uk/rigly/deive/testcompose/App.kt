@@ -6,17 +6,10 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import uk.rigly.deive.testcompose.address.details.Address
 import uk.rigly.deive.testcompose.address.details.AddressScreen
 import uk.rigly.deive.testcompose.address.list.AddressItemsScreen
 import uk.rigly.deive.testcompose.theme.TestComposeTheme
@@ -28,16 +21,6 @@ import java.util.*
 fun App() {
     TestComposeTheme {
         val navController = rememberAnimatedNavController()
-        val viewModel: MainViewModel = viewModel()
-        val addresses by viewModel.db.addressDao().getAll().collectAsState(initial = emptyList())
-        LaunchedEffect(true) {
-            if (addresses.isEmpty()) {
-                val response = viewModel.httpClient
-                    .get("https://random-data-api.com/api/address/random_address?size=20")
-                    .body<List<Address>>()
-                viewModel.db.addressDao().insertAll(response)
-            }
-        }
         AnimatedNavHost(
             navController,
             "list") {
@@ -52,7 +35,7 @@ fun App() {
                 exitTransition = {
                     slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(700))
                 }) {
-                AddressItemsScreen(addresses) {
+                AddressItemsScreen {
                     navController.navigate("detail/${it.uuid}")
                 }
             }

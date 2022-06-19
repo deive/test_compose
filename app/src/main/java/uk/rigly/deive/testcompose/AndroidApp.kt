@@ -6,7 +6,6 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
@@ -15,7 +14,7 @@ import kotlin.math.pow
 
 class AndroidApp : Application() {
 
-    lateinit var db: Database
+    lateinit var db: DatabaseProvider
         private set
 
     val httpClient by lazy {
@@ -33,7 +32,7 @@ class AndroidApp : Application() {
         super.onCreate()
         db = Room.databaseBuilder(
             applicationContext,
-            Database::class.java, "database"
+            DatabaseProvider::class.java, "database"
         ).build()
     }
 
